@@ -12,6 +12,23 @@ Hackers: The hacker_id is the id of the hacker, and name is the name of the hack
 | hacker_id   | integer  |
 | Name        | string   |
 +-------------+----------+
+Difficulty: The difficult_level is the level of difficulty of the challenge, and score is the score of the challenge for the difficulty level. 
++--------------------+----------+
+| Field              | Type     |
++--------------------+----------+
+| difficulty_level   | integer  |
+| score              | string   |
++--------------------+----------+
+
+Challenges: The challenge_id is the id of the challenge, the hacker_id is the id of the hacker who created the challenge, and difficulty_level is the level of difficulty of the challenge.
++--------------------+----------+
+| Field              | Type     |
++--------------------+----------+
+| challenge_id       | integer  |
+| hacker_id          | string   |
+| difficulty_level   | integer  |
++--------------------+----------+
+
 Submissions: The submission_id is the id of the submission, hacker_id is the id of the hacker who made the submission, challenge_id 
 is the id of the challenge for which the submission belongs to, and score is the score of the submission.
 +---------------+----------+
@@ -23,3 +40,16 @@ is the id of the challenge for which the submission belongs to, and score is the
 | score         | integer  |
 +---------------+----------+
 
+Solution:
+/*
+Enter your query here.
+*/
+SELECT S.HACKER_ID, NAME
+FROM SUBMISSIONS AS S 
+JOIN HACKERS AS H ON S.HACKER_ID = H.HACKER_ID
+JOIN CHALLENGES AS C ON S.CHALLENGE_ID = C.CHALLENGE_ID
+JOIN DIFFICULTY AS D ON C.DIFFICULTY_LEVEL = D.DIFFICULTY_LEVEL
+WHERE S.SCORE = D.SCORE
+GROUP BY NAME, S.HACKER_ID
+HAVING COUNT(S.CHALLENGE_ID) > 1
+ORDER BY COUNT(S.CHALLENGE_ID) DESC, S.HACKER_ID
