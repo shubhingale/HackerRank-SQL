@@ -433,99 +433,7 @@ Solution:
 SELECT TRUNCATE(SUM(LAT_N),4) FROM STATION
 WHERE LAT_N BETWEEN 38.7880 AND 137.2345;DIFFERENCE BETWEEN TRUNCATE AND 
 
-20. Weather Observation Station 14(AGGREGATION)
-
-Query the greatest value of the Northern Latitudes (LAT_N) from STATION that is less than 137.2345. Truncate your answer to 4 decimal places.
-
-Input Format
-
-The STATION table is described as follows:
-+-------------+--------------+
-| Field       | Type         |
-+-------------+--------------+
-| ID          | number       |
-| CITY        | varchar2(21) |
-| STATE       | varchar2(3)  |
-| LAT_N       | number       |
-| LONG_W      | number       |
-+-------------+--------------+
-where LAT_N is the northern latitude and LONG_W is the western longitude.
-
-Solution:
-
-SELECT TRUNCATE(MAX(LAT_N),4) FROM STATION
-WHERE LAT_N < 137.2345;
-
-21. Weather Observation Station 15
-
-Query the Western Longitude (LONG_W) for the largest Northern Latitude (LAT_N) in STATION that is less than 137.2345. Round your answer to 4 decimal places.
-
-Input Format
-
-The STATION table is described as follows:
-+-------------+--------------+
-| Field       | Type         |
-+-------------+--------------+
-| ID          | number       |
-| CITY        | varchar2(21) |
-| STATE       | varchar2(3)  |
-| LAT_N       | number       |
-| LONG_W      | number       |
-+-------------+--------------+
-where LAT_N is the northern latitude and LONG_W is the western longitude.
-
-Solution:
-
-SELECT ROUND(LONG_W,4) FROM STATION
-WHERE LAT_N = (SELECT MAX(LAT_N) FROM STATION WHERE LAT_N < 137.2345);
-
-22. Weather Observation Station 16
-
-Query the smallest Northern Latitude (LAT_N) from STATION that is greater than 38.7780. Round your answer to 4 decimal places.
-
-Input Format
-
-The STATION table is described as follows:
-+-------------+--------------+
-| Field       | Type         |
-+-------------+--------------+
-| ID          | number       |
-| CITY        | varchar2(21) |
-| STATE       | varchar2(3)  |
-| LAT_N       | number       |
-| LONG_W      | number       |
-+-------------+--------------+
-where LAT_N is the northern latitude and LONG_W is the western longitude.
-
-Solution:
-
-SELECT ROUND(MIN(LAT_N), 4) FROM STATION
-WHERE LAT_N > 38.7780;
-
-23. Weather Observation Station 17
-
-Query the Western Longitude (LONG_W) where the smallest Northern Latitude (LAT_N) in STATION is greater than 38.7780. Round your answer to 4 decimal places.
-
-Input Format
-
-The STATION table is described as follows:
-+-------------+--------------+
-| Field       | Type         |
-+-------------+--------------+
-| ID          | number       |
-| CITY        | varchar2(21) |
-| STATE       | varchar2(3)  |
-| LAT_N       | number       |
-| LONG_W      | number       |
-+-------------+--------------+
-where LAT_N is the northern latitude and LONG_W is the western longitude.
-
-Soution:
-
-SELECT ROUND(LONG_W,4) FROM STATION
-WHERE LAT_N = (SELECT MIN(LAT_N) FROM STATION WHERE LAT_N > 38.7780);
-
-22. Higher Than 75 Marks
+20. Higher Than 75 Marks
 Query the Name of any student in STUDENTS who scored higher than  Marks. Order your output by the last three characters of each name. If two or more students both have names ending in the same last three characters (i.e.: Bobby, Robby, etc.), secondary sort them by ascending ID.
 
 Input Format
@@ -568,7 +476,7 @@ SELECT NAME FROM STUDENTS
 WHERE MARKS > 75
 ORDER BY SUBSTRING(NAME, -3, 3), ID ASC;
 
-23. Employee Names
+21. Employee Names
 Write a query that prints a list of employee names (i.e.: the name attribute) from the Employee table in alphabetical order.
 
 Input Format
@@ -620,7 +528,7 @@ Solution:
 SELECT NAME FROM EMPLOYEE
 ORDER BY NAME;
 
-24. Employee Salaries
+22. Employee Salaries
 
 Write a query that prints a list of employee names (i.e.: the name attribute) for employees in Employee having a salary greater than $2000 per month 
 who have been employees for less than 10 months. Sort your result by ascending employee_id.
