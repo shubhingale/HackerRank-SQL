@@ -42,3 +42,18 @@ The second column is an alphabetically ordered list of Professor names.
 The third column is an alphabetically ordered list of Singer names.
 The fourth column is an alphabetically ordered list of Actor names.
 The empty cell data for columns with less than the maximum number of names per occupation (in this case, the Professor and Actor columns) are filled with NULL values.
+
+Solution:
+
+CREATE VIEW TEMP AS (
+    SELECT 
+        CASE WHEN OCCUPATION = 'Doctor' THEN name END AS 'Doctor',
+        CASE WHEN OCCUPATION = 'Professor' THEN name END AS 'Professor',
+        CASE WHEN OCCUPATION = 'Singer' THEN name END AS  'Singer',
+        CASE WHEN OCCUPATION = 'Actor' THEN name END AS  'Actor',
+        ROW_NUMBER() OVER (PARTITION BY OCCUPATION ORDER BY name) as CR
+    FROM OCCUPATIONS
+);
+
+SELECT MAX(Doctor),MAX(Professor),MAX(Singer),MAX(Actor) FROM TEMP 
+GROUP BY CR
