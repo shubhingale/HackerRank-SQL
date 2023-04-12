@@ -411,21 +411,11 @@ WHERE NOT (CITY LIKE "a%" OR CITY LIKE "e%" OR CITY LIKE "i%" OR CITY LIKE "o%" 
       AND NOT (CITY LIKE "%a" OR CITY LIKE "%e" OR CITY LIKE "%i" OR CITY LIKE "%o" OR CITY LIKE "%u");
 
 19. Weather Observation Station 13
+Query the sum of Northern Latitudes (LAT_N) from STATION having values greater than 38.7880 and less than 137.2345. Truncate your answer to 4 decimal places.
 
+Input Format
 
-+-------------+--------------+
-| Field       | Type         |
-+-------------+--------------+
-| ID          | number       |
-| CITY        | varchar2(21) |
-| STATE       | varchar2(3)  |
-| LAT_N       | number       |
-| LONG_W      | number       |
-+-------------+--------------+
-where LAT_N is the northern latitude and LONG_W is the western longitude.
-
-20. Weather Observation Station 14
-
+The STATION table is described as follows:
 
 +-------------+--------------+
 | Field       | Type         |
@@ -437,6 +427,34 @@ where LAT_N is the northern latitude and LONG_W is the western longitude.
 | LONG_W      | number       |
 +-------------+--------------+
 where LAT_N is the northern latitude and LONG_W is the western longitude.
+
+Solution:
+
+SELECT TRUNCATE(SUM(LAT_N),4) FROM STATION
+WHERE LAT_N BETWEEN 38.7880 AND 137.2345;DIFFERENCE BETWEEN TRUNCATE AND 
+
+20. Weather Observation Station 14(AGGREGATION)
+
+Query the greatest value of the Northern Latitudes (LAT_N) from STATION that is less than 137.2345. Truncate your answer to 4 decimal places.
+
+Input Format
+
+The STATION table is described as follows:
++-------------+--------------+
+| Field       | Type         |
++-------------+--------------+
+| ID          | number       |
+| CITY        | varchar2(21) |
+| STATE       | varchar2(3)  |
+| LAT_N       | number       |
+| LONG_W      | number       |
++-------------+--------------+
+where LAT_N is the northern latitude and LONG_W is the western longitude.
+
+Solution:
+
+SELECT TRUNCATE(MAX(LAT_N),4) FROM STATION
+WHERE LAT_N < 137.2345;
 
 21. Weather Observation Station 15
 
@@ -482,3 +500,152 @@ where LAT_N is the northern latitude and LONG_W is the western longitude.
 Query the Name of any student in STUDENTS who scored higher than  Marks. Order your output by the last three characters of each name. If two or more students both have names ending in the same last three characters (i.e.: Bobby, Robby, etc.), secondary sort them by ascending ID.
 
 Input Format
+
+The STUDENTS table is described as follows:
++-------------+--------------+
+| Field       | Type         |
++-------------+--------------+
+| ID          | INTEGER      |
+| NAME        | STRING       |
+| MARKS       | INTEGER      |
++-------------+--------------+
+
+The Name column only contains uppercase (A-Z) and lowercase (a-z) letters.
+
+Sample Input
+
++-------------+--------------+--------------+
+| ID          | NAME         |   MARKS      |
++-------------+--------------+--------------+
+| 1           | ASHLEY       |      81      |
+| 2           | SAMANTHA     |      75      |
+| 3           | JULIA        |      76      |
+| 4           | BELVET       |      84      |
++-------------+--------------+--------------+
+
+Sample Output
+
+Ashley
+Julia
+Belvet
+Explanation
+
+Only Ashley, Julia, and Belvet have Marks > 75. If you look at the last three characters of each of their names, 
+there are no duplicates and 'ley' < 'lia' < 'vet'.
+
+Solution:
+
+SELECT NAME FROM STUDENTS
+WHERE MARKS > 75
+ORDER BY SUBSTRING(NAME, -3, 3), ID ASC;
+
+23. Employee Names
+Write a query that prints a list of employee names (i.e.: the name attribute) from the Employee table in alphabetical order.
+
+Input Format
+
+The Employee table containing employee data for a company is described as follows:
+
++-------------+--------------+
+| Field       | Type         |
++-------------+--------------+
+| employee_id | integer      |
+| name        | string       |
+| months      | integer      |
+| salary      | integer      |
++-------------+--------------+
+
+where employee_id is an employee's ID number, name is their name, months is the total number of months they've been working for the company, and salary is their monthly salary.
+
+Sample Input
+
++-------------+--------------+--------------+--------------+
+| employee_id | name         | months       | salary       |
++-------------+--------------+--------------+--------------+
+| 12228       | Rosa         | 15           | 1968         |
+| 33645       | Angela       | 1            | 3443         |
+| 45692       | Frank        | 17           | 1608         |
+| 56118       | Patrick      | 7            | 1345         |
+| 59725       | Lisa         | 11           | 2330         |
+| 74197       | Kimberly     | 16           | 4372         |
+| 78454       | Bonnie       | 8            | 1771         |
+| 83565       | Michael      | 6            | 2017         |
+| 98607       | Todd         | 5            | 3396         |
+| 99989       | Joe          | 9            | 3573         |
++-------------+--------------+--------------+--------------+
+
+Sample Output
+
+Angela
+Bonnie
+Frank
+Joe
+Kimberly
+Lisa
+Michael
+Patrick
+Rose
+Todd
+ 
+Solution:
+SELECT NAME FROM EMPLOYEE
+ORDER BY NAME;
+
+24. Employee Salaries
+
+Write a query that prints a list of employee names (i.e.: the name attribute) for employees in Employee having a salary greater than $2000 per month 
+who have been employees for less than 10 months. Sort your result by ascending employee_id.
+
+Input Format
+
+The Employee table containing employee data for a company is described as follows:
++-------------+--------------+
+| Field       | Type         |
++-------------+--------------+
+| employee_id | integer      |
+| name        | string       |
+| months      | integer      |
+| salary      | integer      |
++-------------+--------------+
+
+where employee_id is an employee's ID number, name is their name, months is the total number of months they've been working for the company, 
+and salary is their monthly salary.
+
+Sample Input
+
++-------------+--------------+--------------+--------------+
+| employee_id | name         | months       | salary       |
++-------------+--------------+--------------+--------------+
+| 12228       | Rosa         | 15           | 1968         |
+| 33645       | Angela       | 1            | 3443         |
+| 45692       | Frank        | 17           | 1608         |
+| 56118       | Patrick      | 7            | 1345         |
+| 59725       | Lisa         | 11           | 2330         |
+| 74197       | Kimberly     | 16           | 4372         |
+| 78454       | Bonnie       | 8            | 1771         |
+| 83565       | Michael      | 6            | 2017         |
+| 98607       | Todd         | 5            | 3396         |
+| 99989       | Joe          | 9            | 3573         |
++-------------+--------------+--------------+--------------+
+
+Sample Output
+
+Angela
+Michael
+Todd
+Joe
+Explanation
+
+Angela has been an employee for 1 month and earns $3443 per month.
+
+Michael has been an employee for 6 months and earns $2017 per month.
+
+Todd has been an employee for 5 months and earns $3396 per month.
+
+Joe has been an employee for 9 months and earns $3573 per month.
+
+We order our output by ascending employee_id.
+
+Solution:
+SELECT NAME FROM EMPLOYEE
+WHERE SALARY > 2000 AND MONTHS < 10;
