@@ -1,0 +1,18 @@
+Query the average population for all cities in CITY, rounded down to the nearest integer.
+
+Input Format
+
+The CITY table is described as follows:
++-------------+--------------+
+| Field       | Type         |
++-------------+--------------+
+| ID          | number       |
+| Name        | varchar2(17) |
+| CountryCode | varchar2(3)  |
+| District    | varchar(10)  |
+| Population  | number       |
++-------------+--------------+
+
+Solution:
+
+SELECT ROUND(AVG(POPULATION),0) FROM CITY;
