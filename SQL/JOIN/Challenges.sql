@@ -23,3 +23,15 @@ is the id of the challenge for which the submission belongs to, and score is the
 +-------------+----------+
 
 Solution:
+
+SELECT C.HACKER_ID, H.NAME, COUNT(C.CHALLENGE_ID) AS CNT
+    FROM HACKERS H JOIN CHALLENGES C
+    ON H.HACKER_ID = C.HACKER_ID
+    GROUP BY C.HACKER_ID, H.NAME
+    HAVING CNT = (SELECT COUNT(C1.CHALLENGE_ID) FROM CHALLENGES AS C1 
+                  GROUP BY C1.HACKER_ID 
+                  ORDER BY COUNT(*) DESC LIMIT 1) OR
+           CNT NOT IN (SELECT COUNT(C2.CHALLENGE_ID) FROM CHALLENGES AS C2 
+                       GROUP BY C2.HACKER_ID 
+                       HAVING C2.HACKER_ID <> C.HACKER_ID)
+    ORDER BY 3 DESC, H.HACKER_ID;
